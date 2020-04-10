@@ -45,6 +45,46 @@ Next, back in the terminal, run:
 
 In Xcode, open the new `.xcworkspace` file. Once cocoapods is integrated into your project, you will no longer be using the xcode project file in xcode. Instead, you'll be working with the workspace file.
 
+#### Step 1: Adding FullStory.framework to the "Link Binary with Libraries" build phase:
+
+1. In Xcode, select the highest level of your project in the project tree on the left hand side.
+2. In the middle pane that opens, find the "Build Phases" tab and click on it.
+3. In the tab, locate the line item labeled "Link Binary with Libraries" and click into it.
+4. Click the + sign to add a new framework.
+5. In the window that appears, click on "Add Other" then click "Add Files".
+6. IF YOU INSTALLED VIA COCOAPODS:
+   - Browse into your Pods directory > FullStory and select the FullStory.framework folder and click on Open.
+7. IF YOU INSTALLED MANUALLY:
+   - Browse to where you extracted the FullStory.framework and select it, clicking on Open.
+
+#### Step 2: Add FSOrgId to your Info.plist
+
+1. Click on the "Info" tab (two to the left of Build Phases tab).
+2. Hover over an existing item and click on the + sign.
+3. In the new blank field, type `FSOrgId` for the Key and press return
+4. In the Value field, enter your FS Org Id. In this case, I'm using `PSYET` my test org.
+
+#### Step 3: Add a build phase to ru nFullStory's asset uploading script `FullStoryCommandLine`.
+
+1. Back in the Build Phases tab, click on the + sign in the upper left hand corner.
+2. Select "New Run Script Phase", make sure this build phase is below "Copy Bundle Resources"
+3. IF YOU INSTALLED VIA COCOAPODS:
+
+   - Type the following into the shell editor:
+
+   `"./Pods/FullStory/tools/FullStoryCommandLine" "${CONFIGURATION_BUILD_DIR}/${WRAPPER_NAME}"`
+
+   - Note, this is a relative path and may need to change based on your pod configuration.
+
+4. IF YOU INSTALLED MANUALLY:
+   - Type above subbing out the path to your Fullstory/tools/FullStoryCommandLine file.
+
+#### That's it! You're done :nail_care:
+
+1. Build the app and launch it in an emulator,
+2. Play around with the app and and then background it.
+3. Grab a frosty beverage and wait for your session to upload to FullStory.
+
 ## Using the app
 
 The Shoppe is a super simple e-commerce application. Build and run the app on your emulator, you can:
